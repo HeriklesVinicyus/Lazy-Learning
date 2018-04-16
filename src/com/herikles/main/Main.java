@@ -5,6 +5,7 @@
  */
 package com.herikles.main;
 
+import com.herikles.agoritimo.Classificador;
 import com.herikles.dao.arquivoTXT.ManiculadorTXT;
 
 /**
@@ -18,9 +19,12 @@ public class Main {
      */
     public static void main(String[] args) {
         ManiculadorTXT mt = new ManiculadorTXT();
+        Classificador c = new Classificador();
+        
         mt.create("lala");
         
         System.out.println(mt.read());
+        System.out.println(c.classificar(mt.read().split("\n"), "0,4", 3));
     }
-    
+
 }
