@@ -20,15 +20,28 @@ public class Main {
     public static void main(String[] args) {
         ManipuladorTXT mt = new ManipuladorTXT();
         Classificador c = new Classificador();
+
+        String base = mt.read("Basedados.txt");
+        String test = mt.read("Test.txt");
+        String baseSeparada[] = mt.read("Basedados.txt").split("\n");
+        String TestSeparado[] = mt.read("Test.txt").split("\n");
+        mt.setSrc("Saida");
+        String resultados = "K=3\n";
+
+        for (String TestSeparado1 : TestSeparado) {
+            resultados += TestSeparado1 + "," + c.classificar(baseSeparada, TestSeparado1, 3) + "\n";
+        }
+
+        resultados += "K=5\n";
+
+        for (String TestSeparado1 : TestSeparado) {
+            resultados += TestSeparado1 + "," + c.classificar(baseSeparada, TestSeparado1, 5) + "\n";
+        }
         
-        String base = mt.read("src/com/herikles/arquivo/Basedados.txt");
-        String test = mt.read("src/com/herikles/arquivo/Test.txt");
-        
-        
-        mt.create("lala");
-        
-        System.out.println(mt.read());
-        System.out.println(c.classificar(mt.read().split("\n"), "0,4", 3));
+        mt.create(resultados);
+        System.out.println("\nBase\n" + base);
+        System.out.println("\nTeste\n" + test);
+        System.out.println("\nSaida\n" + resultados);
     }
 
 }

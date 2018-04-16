@@ -15,14 +15,12 @@ import java.util.Arrays;
 public class Classificador {
 
     public String classificar(String[] base, String instancia, int fronteira) {
-        String res = "";
         double distaciasAux[] = todasDistanciasEntreIstanciaTest(base, instancia);
         int menoresInstancias[] = retornarIndiceMenoresDistancias(distaciasAux, fronteira);
         String saidasMenoresBase[] = montarArraySaidaBase(base, menoresInstancias);
         /*System.out.println( Arrays.toString(distaciasAux));
         System.out.println( Arrays.toString(menoresInstancias));*/
-        res = saidaInstacia(saidasMenoresBase);
-        return res;
+        return saidaInstacia(saidasMenoresBase);
     }
 
     private String saidaInstacia(String[] saidasMenoresBase) {
@@ -34,13 +32,13 @@ public class Classificador {
         }
         for (int i = 1; i < saidasMenoresBase.length; i++) {
             for (int j = 0; j < tiposSaidas.size(); j++) {
-                if (!saidasMenoresBase[i].equals(tiposSaidas.get(j))) {
-                    tiposSaidas.add(saidasMenoresBase[i]);
+                if (saidasMenoresBase[i].equals(tiposSaidas.get(j))) {
                     break;
                 }
+                tiposSaidas.add(saidasMenoresBase[i]);
             }
         }
-        
+
         cont = new int[tiposSaidas.size()];
         for (int i = 0; i < cont.length; i++) {
             for (String saidasMenoresBase1 : saidasMenoresBase) {
@@ -56,7 +54,6 @@ public class Classificador {
                 id = i;
             }
         }
-        System.out.println(Arrays.toString(cont));
 
         return tiposSaidas.get(id);
     }
@@ -105,6 +102,7 @@ public class Classificador {
             }
             distaciasAux[i] = Math.sqrt(distanciaInstaciaBase);
         }
+        System.out.println(Arrays.toString(distaciasAux));
         return distaciasAux;
     }
 

@@ -31,7 +31,7 @@ public class ManipuladorTXT implements DAO<String, String> {
     public void create(String s) {
         FileWriter arq;
         try {
-            arq = new FileWriter(this.src);
+            arq = new FileWriter("src/com/herikles/arquivo/"+this.src);
             PrintWriter gravarArq = new PrintWriter(arq);
             gravarArq.printf(s);
             arq.close();
@@ -45,7 +45,7 @@ public class ManipuladorTXT implements DAO<String, String> {
         FileReader arq;
         String aux = "";
         try {
-            arq = new FileReader(src);
+            arq = new FileReader("src/com/herikles/arquivo/"+src);
             BufferedReader lerArq = new BufferedReader(arq);
             String linha = lerArq.readLine();
             while (linha != null) {
