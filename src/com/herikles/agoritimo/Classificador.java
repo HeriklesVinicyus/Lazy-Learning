@@ -18,8 +18,6 @@ public class Classificador {
         double distaciasAux[] = todasDistanciasEntreIstanciaTest(base, instancia);
         int menoresInstancias[] = retornarIndiceMenoresDistancias(distaciasAux, fronteira);
         String saidasMenoresBase[] = montarArraySaidaBase(base, menoresInstancias);
-        /*System.out.println( Arrays.toString(distaciasAux));
-        System.out.println( Arrays.toString(menoresInstancias));*/
         return saidaInstacia(saidasMenoresBase);
     }
 
@@ -102,7 +100,6 @@ public class Classificador {
             }
             distaciasAux[i] = Math.sqrt(distanciaInstaciaBase);
         }
-        System.out.println(Arrays.toString(distaciasAux));
         return distaciasAux;
     }
 
