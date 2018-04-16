@@ -25,19 +25,16 @@ public class Main {
         String test = mt.read("Test.txt");
         String baseSeparada[] = mt.read("Basedados.txt").split("\n");
         String TestSeparado[] = mt.read("Test.txt").split("\n");
-        mt.setSrc("Saida");
-        String resultados = "K=3\n";
+        mt.setSrc("Saida.txt");
+        String resultados = "";
 
-        for (String TestSeparado1 : TestSeparado) {
-            resultados += TestSeparado1 + "," + c.classificar(baseSeparada, TestSeparado1, 3) + "\n";
+        for (int i = 1; i <= baseSeparada.length; i++) {
+            resultados += "K=" + i + "\n";
+            for (String TestSeparado1 : TestSeparado) {
+                resultados += TestSeparado1 + "," + c.classificar(baseSeparada, TestSeparado1, i) + "\n";
+            }
         }
 
-        resultados += "K=5\n";
-
-        for (String TestSeparado1 : TestSeparado) {
-            resultados += TestSeparado1 + "," + c.classificar(baseSeparada, TestSeparado1, 5) + "\n";
-        }
-        
         mt.create(resultados);
         System.out.println("\nBase\n" + base);
         System.out.println("\nTeste\n" + test);
