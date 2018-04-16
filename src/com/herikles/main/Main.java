@@ -6,7 +6,7 @@
 package com.herikles.main;
 
 import com.herikles.agoritimo.Classificador;
-import com.herikles.dao.arquivoTxtDao.ManiculadorTXT;
+import com.herikles.dao.arquivoTxtDao.ManipuladorTXT;
 
 /**
  *
@@ -18,8 +18,12 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        ManiculadorTXT mt = new ManiculadorTXT();
+        ManipuladorTXT mt = new ManipuladorTXT();
         Classificador c = new Classificador();
+        
+        String base = mt.read("src/com/herikles/arquivo/Basedados.txt");
+        String test = mt.read("src/com/herikles/arquivo/Test.txt");
+        
         
         mt.create("lala");
         

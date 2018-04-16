@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author Hérikles Vinicyus <heriklesvinicyus@hotmail.com>
  */
-public class ManiculadorTXT implements DAO<String, String> {
+public class ManipuladorTXT implements DAO<String, String> {
 
     private String src;
 
@@ -36,7 +36,7 @@ public class ManiculadorTXT implements DAO<String, String> {
             gravarArq.printf(s);
             arq.close();
         } catch (IOException ex) {
-            Logger.getLogger(ManiculadorTXT.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManipuladorTXT.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -54,9 +54,9 @@ public class ManiculadorTXT implements DAO<String, String> {
             }
             arq.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(ManiculadorTXT.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManipuladorTXT.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(ManiculadorTXT.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManipuladorTXT.class.getName()).log(Level.SEVERE, null, ex);
         }
         return aux;
     }
