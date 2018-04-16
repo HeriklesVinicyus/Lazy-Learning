@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.herikles.dao.arquivoTXT;
+package com.herikles.dao.arquivoTxtDao;
 
 import com.herikles.dao.DAO;
 import java.io.BufferedReader;
@@ -19,28 +19,33 @@ import java.util.logging.Logger;
  *
  * @author Hérikles Vinicyus <heriklesvinicyus@hotmail.com>
  */
-public class ManiculadorTXT implements DAO<String> {
+public class ManiculadorTXT implements DAO<String, String> {
 
+    private String src;
+
+    public void setSrc(String src) {
+        this.src = src;
+    }
+    
     @Override
     public void create(String s) {
         FileWriter arq;
         try {
-            arq = new FileWriter("src/com/herikles/arquivo/resultado.txt");
+            arq = new FileWriter(this.src);
             PrintWriter gravarArq = new PrintWriter(arq);
             gravarArq.printf(s);
             arq.close();
         } catch (IOException ex) {
             Logger.getLogger(ManiculadorTXT.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     @Override
-    public String read() {
+    public String read(String src) {
         FileReader arq;
         String aux = "";
         try {
-            arq = new FileReader("src/com/herikles/arquivo/Basedados.txt");
+            arq = new FileReader(src);
             BufferedReader lerArq = new BufferedReader(arq);
             String linha = lerArq.readLine();
             while (linha != null) {

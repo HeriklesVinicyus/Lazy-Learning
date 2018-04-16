@@ -6,7 +6,7 @@
 package com.herikles.main;
 
 import com.herikles.agoritimo.Classificador;
-import com.herikles.dao.arquivoTXT.ManiculadorTXT;
+import com.herikles.dao.arquivoTxtDao.ManiculadorTXT;
 
 /**
  *

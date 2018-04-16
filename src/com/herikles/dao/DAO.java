@@ -9,8 +9,8 @@ package com.herikles.dao;
  *
  * @author Hérikles Vinícyus <heriklesvinicyus@hotmail.com>
  */
-public interface DAO<T> {
+public interface DAO<T,I> {
     public void create(T t);
-    public T read();
+    public T read(I i);
     
 }
