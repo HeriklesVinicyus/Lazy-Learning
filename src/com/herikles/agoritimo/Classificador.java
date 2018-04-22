@@ -21,6 +21,28 @@ public class Classificador {
         return saidaInstacia(saidasMenoresBase);
     }
 
+    public String[] retirarSaida(String base[]) {
+        String resp[] = new String[base.length];
+        for (int i = 0; i < resp.length; i++) {
+            String aux[] = base[i].split(",");
+            resp[i] = aux[aux.length - 1];
+        }
+        return resp;
+    }
+    
+    //Perguntar se é esse no nome
+    public double taxaAprendizado(String[] saidaEsperada, String[] saidaObtida) {
+        double totalAcertos = 0;
+
+        for (int i = 0; i < saidaObtida.length; i++) {
+            if (Double.parseDouble(saidaEsperada[i]) == Double.parseDouble(saidaObtida[i])) {
+                totalAcertos++;
+            }
+        }
+        System.out.println(totalAcertos);
+        return (totalAcertos / saidaEsperada.length);
+    }
+
     private String saidaInstacia(String[] saidasMenoresBase) {
         int cont[];
         ArrayList<String> tiposSaidas = new ArrayList<>();
@@ -102,5 +124,4 @@ public class Classificador {
         }
         return distaciasAux;
     }
-
 }
