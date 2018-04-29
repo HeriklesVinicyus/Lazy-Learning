@@ -37,7 +37,8 @@ public class Main {
             }
 
             taxaAprendidado = c.taxaAprendizado(resuldadosEsperado, saidas);
-            System.out.println(i + " - " + taxaAprendidado);
+            
+            System.out.println((i+1) + " - " + taxaAprendidado);
 
         }
 

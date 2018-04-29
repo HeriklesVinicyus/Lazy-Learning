@@ -39,7 +39,6 @@ public class Classificador {
                 totalAcertos++;
             }
         }
-        System.out.println(totalAcertos);
         return (totalAcertos / saidaEsperada.length);
     }
 
