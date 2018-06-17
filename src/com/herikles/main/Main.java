@@ -35,11 +35,8 @@ public class Main {
                 resultados += aux + "\n";
                 saidas[j] = aux;
             }
-
             taxaAprendidado = c.taxaAprendizado(resuldadosEsperado, saidas);
-            
             System.out.println((i+1) + " - " + taxaAprendidado);
-
         }
 
         mt.create(resultados);
