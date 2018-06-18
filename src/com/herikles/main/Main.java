@@ -22,8 +22,11 @@ public class Main {
         PSO p = new PSO();
         mt.setSrc("Saida.txt");
 
-        String baseSeparada[] = (mt.read("iris.txt")).split("\n");
-        String testSeparado[] = (mt.read("testIris.txt")).split("\n");
+        String baseCompleta[] = (mt.read("iris.txt")).split("\n");
+        String separado[][] = separaBase(baseCompleta, 70, 30, 50);
+        String baseSeparada[] = separado[0];
+        String validacaoSeparada[] = separado[1];
+        String testSeparado[] = separado[2];
 
         /*String resultados = "";
 
@@ -49,6 +52,23 @@ public class Main {
         */
         System.out.println(p.psoTodos(baseSeparada, testSeparado, 7));
         
+    }
+    
+    public static String[][] separaBase(String[] base, int tamBase, int tamValidacao, int tamTeste){
+        String[][] resp = {
+            new String[tamBase],
+            new String[tamValidacao],
+            new String[tamTeste]
+        };
+        
+        int cont = 0;
+        for (String[] resp1 : resp) {
+            for (int j = 0; j < resp1.length; j++) {
+                resp1[j] = base[cont++]; 
+            }
+        }
+        
+        return resp;
     }
 
 }
