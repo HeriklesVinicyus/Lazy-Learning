@@ -98,8 +98,18 @@ public class PSO {
         double r1 = Math.random();
         double c2 = 2;
         double r2 = Math.random();
+        double[] aux = CalculadoraArray.soma(CalculadoraArray.multiplicacaoPorEscalar(w, velocidadeAtual), CalculadoraArray.multiplicacaoPorEscalar((c1 * r1), pbest), CalculadoraArray.multiplicacaoPorEscalar((c2 * r2), gbest));
 
-        return CalculadoraArray.soma(CalculadoraArray.multiplicacaoPorEscalar(w, velocidadeAtual), CalculadoraArray.multiplicacaoPorEscalar((c1 * r1), pbest), CalculadoraArray.multiplicacaoPorEscalar((c2 * r2), gbest));
+        for (int i = 0; i < aux.length; i++) {
+            if (aux[i] < -0.3) {
+                aux[i] = -0.3;
+            }
+            if (aux[i] > 0.3) {
+                aux[i] = 0.3;
+            }
+        }
+
+        return aux;
     }
 
     public String[] gerarBaseParticulaX(String[] base, int[] x) {
