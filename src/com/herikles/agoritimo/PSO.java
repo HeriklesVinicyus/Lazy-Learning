@@ -17,7 +17,6 @@ public class PSO {
 
     public String psoTodos(String[] base, String[] instancias, int fronteira) {
         String resp = "";
-
         int tamanho = (base[0].split(",")).length - 1;
         int quantInteracao = (int) Math.pow((base[0].split(",")).length - 1, 2);
         int[][] x = new int[quantInteracao - 1][tamanho];
@@ -68,7 +67,6 @@ public class PSO {
 
     private double[] gerarInstanciaInicial(int tamanho) {
         double[] resp = new double[tamanho];
-
         for (int i = 0; i < resp.length; i++) {
             resp[i] = Math.round(Math.random());
         }
