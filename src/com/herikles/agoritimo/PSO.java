@@ -30,8 +30,8 @@ public class PSO {
         }
 
         for (int i = 0; i < x.length; i++) {
-            String[] baseAux = gerarParticulaBase(base, x[i]);
-            String[] baseTestAux = gerarParticulaBase(instancias, x[i]);
+            String[] baseAux = gerarBaseParticulaX(base, x[i]);
+            String[] baseTestAux = gerarBaseParticulaX(instancias, x[i]);
             String[] resuldadosEsperado = c.retirarSaida(baseTestAux);
             String[] saidas = new String[baseTestAux.length];
 
@@ -45,15 +45,64 @@ public class PSO {
         return resp;
     }
 
-    public String[] gerarParticulaBase(String[] base, int[] x) {
+    public int[] gerarGbest(String[] base, String[] validacao, int k, int quantParticulas) {
+        int tamanhoX = (base[0].split(",")).length - 1;
+        double[] gBest;
+        double[][] pBest = new double[quantParticulas][tamanhoX];
+        double[][] auxPBest = new double[quantParticulas][tamanhoX];
+        double[] taxaAprendizadoPbest = new double[quantParticulas];
+        double[] taxaAprendizadoAuxPbest = new double[quantParticulas];
+
+        for (int i = 0; i < auxPBest.length; i++) {
+            auxPBest[i] = gerarParticulasInicial(tamanhoX);
+        }
+
+        for (int i = 0; i < auxPBest.length; i++) {
+            int[] x = converterParaBinario(auxPBest[i]);
+            String[] baseAux = gerarBaseParticulaX(base, x);
+            String[] baseValidacaoAux = gerarBaseParticulaX(validacao, x);
+            String[] resuldadosEsperado = c.retirarSaida(baseValidacaoAux);
+            String[] saidas = new String[baseValidacaoAux.length];
+
+            for (int j = 0; j < baseValidacaoAux.length; j++) {
+                String aux = c.classificar(baseAux, baseValidacaoAux[j], k);
+                saidas[j] = aux;
+            }
+            taxaAprendizadoAuxPbest[i] = c.taxaAprendizado(resuldadosEsperado, saidas);
+        }
+
+        for (int i = 0; i < taxaAprendizadoAuxPbest.length; i++) {
+            if (taxaAprendizadoPbest[i] < taxaAprendizadoAuxPbest[i]) {
+                pBest[i] = auxPBest[i];
+                taxaAprendizadoPbest[i] = taxaAprendizadoAuxPbest[i];
+            }
+        }
+        
+        
+        
+        int auxGbest = 0;
+        for (int i = 1; i < taxaAprendizadoPbest.length; i++) {
+            if (taxaAprendizadoPbest[i] < taxaAprendizadoPbest[auxGbest]) {
+                auxGbest = i;
+            }
+        }
+
+        gBest = pBest[auxGbest];
+
+        return converterParaBinario(gBest);
+    }
+    
+    
+
+    public String[] gerarBaseParticulaX(String[] base, int[] x) {
         String[] resp = new String[base.length];
         for (int i = 0; i < base.length; i++) {
-            resp[i] = gerarParticula(base[i], x);
+            resp[i] = gerarFitnessParticula(base[i], x);
         }
         return resp;
     }
 
-    public String gerarParticula(String instacia, int[] x) {
+    public String gerarFitnessParticula(String instacia, int[] x) {
         String[] auxIntacia = instacia.split(",");
         String resp = "";
         for (int i = 0; i < auxIntacia.length - 1; i++) {
@@ -65,10 +114,10 @@ public class PSO {
         return resp;
     }
 
-    private double[] gerarInstanciaInicial(int tamanho) {
+    private double[] gerarParticulasInicial(int tamanho) {
         double[] resp = new double[tamanho];
         for (int i = 0; i < resp.length; i++) {
-            resp[i] = Math.round(Math.random());
+            resp[i] = Math.random();
         }
         return resp;
     }
@@ -81,5 +130,4 @@ public class PSO {
         return resp;
 
     }
-
 }
