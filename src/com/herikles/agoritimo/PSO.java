@@ -59,7 +59,6 @@ public class PSO {
             auxPBest[i] = gerarParticulasInicial(tamanhoX);
         }
 
-        
         for (int i = 0; i < auxPBest.length; i++) {
             int[] x = converterParaBinario(auxPBest[i]);
             String[] baseAux = gerarBaseParticulaX(base, x);
@@ -80,9 +79,7 @@ public class PSO {
                 taxaAprendizadoPbest[i] = taxaAprendizadoAuxPbest[i];
             }
         }
-        
-        
-        
+
         int auxGbest = 0;
         for (int i = 1; i < taxaAprendizadoPbest.length; i++) {
             if (taxaAprendizadoPbest[i] < taxaAprendizadoPbest[auxGbest]) {
@@ -94,12 +91,15 @@ public class PSO {
 
         return converterParaBinario(gBest);
     }
-    
-    public double[] velocidade (double[] velocidadeAtual, double[] pbest, double gbest){
+
+    public double[] velocidade(double[] velocidadeAtual, double[] pbest, double[] gbest) {
         double w = 0.8;
-        
-        return null;
-        
+        double c1 = 2;
+        double r1 = Math.random();
+        double c2 = 2;
+        double r2 = Math.random();
+
+        return CalculadoraArray.soma(CalculadoraArray.multiplicacaoPorEscalar(w, velocidadeAtual), CalculadoraArray.multiplicacaoPorEscalar((c1 * r1), pbest), CalculadoraArray.multiplicacaoPorEscalar((c2 * r2), gbest));
     }
 
     public String[] gerarBaseParticulaX(String[] base, int[] x) {
