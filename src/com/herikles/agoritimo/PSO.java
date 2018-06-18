@@ -6,6 +6,7 @@
 package com.herikles.agoritimo;
 
 import java.util.Arrays;
+import Jama.Matrix;
 
 /**
  *
@@ -50,6 +51,7 @@ public class PSO {
         double[] gBest;
         double[][] pBest = new double[quantParticulas][tamanhoX];
         double[][] auxPBest = new double[quantParticulas][tamanhoX];
+        double[][] velocidades = new double[quantParticulas][tamanhoX];
         double[] taxaAprendizadoPbest = new double[quantParticulas];
         double[] taxaAprendizadoAuxPbest = new double[quantParticulas];
 
@@ -57,6 +59,7 @@ public class PSO {
             auxPBest[i] = gerarParticulasInicial(tamanhoX);
         }
 
+        
         for (int i = 0; i < auxPBest.length; i++) {
             int[] x = converterParaBinario(auxPBest[i]);
             String[] baseAux = gerarBaseParticulaX(base, x);
@@ -92,7 +95,12 @@ public class PSO {
         return converterParaBinario(gBest);
     }
     
-    
+    public double[] velocidade (double[] velocidadeAtual, double[] pbest, double gbest){
+        double w = 0.8;
+        
+        return null;
+        
+    }
 
     public String[] gerarBaseParticulaX(String[] base, int[] x) {
         String[] resp = new String[base.length];
