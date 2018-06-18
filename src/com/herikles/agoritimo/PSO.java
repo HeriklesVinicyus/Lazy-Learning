@@ -48,7 +48,7 @@ public class PSO {
 
     public int[] gerarGbest(String[] base, String[] validacao, int k, int quantParticulas) {
         int tamanhoX = (base[0].split(",")).length - 1;
-        double[] gBest;
+        double[] gBest = new double[tamanhoX];
         double[][] pBest = new double[quantParticulas][tamanhoX];
         double[][] auxPBest = new double[quantParticulas][tamanhoX];
         double[][] velocidades = new double[quantParticulas][tamanhoX];
@@ -58,38 +58,47 @@ public class PSO {
         for (int i = 0; i < auxPBest.length; i++) {
             auxPBest[i] = gerarParticulasInicial(tamanhoX);
         }
+        for (int intaracao = 0; intaracao < 100; intaracao++) {
+            for (int i = 0; i < auxPBest.length; i++) {
+                int[] x = converterParaBinario(auxPBest[i]);
+                String[] baseAux = gerarBaseParticulaX(base, x);
+                String[] baseValidacaoAux = gerarBaseParticulaX(validacao, x);
+                String[] resuldadosEsperado = c.retirarSaida(baseValidacaoAux);
+                String[] saidas = new String[baseValidacaoAux.length];
 
-        for (int i = 0; i < auxPBest.length; i++) {
-            int[] x = converterParaBinario(auxPBest[i]);
-            String[] baseAux = gerarBaseParticulaX(base, x);
-            String[] baseValidacaoAux = gerarBaseParticulaX(validacao, x);
-            String[] resuldadosEsperado = c.retirarSaida(baseValidacaoAux);
-            String[] saidas = new String[baseValidacaoAux.length];
-
-            for (int j = 0; j < baseValidacaoAux.length; j++) {
-                String aux = c.classificar(baseAux, baseValidacaoAux[j], k);
-                saidas[j] = aux;
+                for (int j = 0; j < baseValidacaoAux.length; j++) {
+                    String aux = c.classificar(baseAux, baseValidacaoAux[j], k);
+                    saidas[j] = aux;
+                }
+                taxaAprendizadoAuxPbest[i] = c.taxaAprendizado(resuldadosEsperado, saidas);
             }
-            taxaAprendizadoAuxPbest[i] = c.taxaAprendizado(resuldadosEsperado, saidas);
-        }
 
-        for (int i = 0; i < taxaAprendizadoAuxPbest.length; i++) {
-            if (taxaAprendizadoPbest[i] < taxaAprendizadoAuxPbest[i]) {
-                pBest[i] = auxPBest[i];
-                taxaAprendizadoPbest[i] = taxaAprendizadoAuxPbest[i];
+            for (int i = 0; i < taxaAprendizadoAuxPbest.length; i++) {
+                if (taxaAprendizadoPbest[i] < taxaAprendizadoAuxPbest[i]) {
+                    pBest[i] = auxPBest[i];
+                    taxaAprendizadoPbest[i] = taxaAprendizadoAuxPbest[i];
+                }
             }
-        }
 
-        int auxGbest = 0;
-        for (int i = 1; i < taxaAprendizadoPbest.length; i++) {
-            if (taxaAprendizadoPbest[i] < taxaAprendizadoPbest[auxGbest]) {
-                auxGbest = i;
+            int auxGbest = 0;
+            for (int i = 1; i < taxaAprendizadoPbest.length; i++) {
+                if (taxaAprendizadoPbest[i] < taxaAprendizadoPbest[auxGbest]) {
+                    auxGbest = i;
+                }
             }
+
+            gBest = pBest[auxGbest];
+            ajustePBests(velocidades, pBest, gBest);
         }
-
-        gBest = pBest[auxGbest];
-
+        System.out.println(Arrays.toString(gBest));
         return converterParaBinario(gBest);
+    }
+
+    public void ajustePBests(double[][] velocidadeAtual, double[][] pbest, double[] gbest) {
+        for (int i = 0; i < velocidadeAtual.length; i++) {
+            velocidadeAtual[i] = velocidade(velocidadeAtual[i], pbest[i], gbest);
+            pbest[i] = CalculadoraArray.soma(pbest[i], velocidadeAtual[i]);
+        }
     }
 
     public double[] velocidade(double[] velocidadeAtual, double[] pbest, double[] gbest) {
