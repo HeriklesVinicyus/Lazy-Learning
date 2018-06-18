@@ -6,7 +6,9 @@
 package com.herikles.main;
 
 import com.herikles.agoritimo.Classificador;
+import com.herikles.agoritimo.PSO;
 import com.herikles.dao.arquivoTxtDao.ManipuladorTXT;
+import java.util.Arrays;
 
 /**
  *
@@ -17,12 +19,13 @@ public class Main {
     public static void main(String[] args) {
         ManipuladorTXT mt = new ManipuladorTXT();
         Classificador c = new Classificador();
+        PSO p = new PSO();
         mt.setSrc("Saida.txt");
 
         String baseSeparada[] = (mt.read("iris.txt")).split("\n");
         String testSeparado[] = (mt.read("testIris.txt")).split("\n");
 
-        String resultados = "";
+        /*String resultados = "";
 
         String[] saidas = new String[testSeparado.length];
         String[] resuldadosEsperado = c.retirarSaida(testSeparado);
@@ -32,15 +35,20 @@ public class Main {
         for (int i = 0; i < epocas; i++) {
             for (int j = 0; j < testSeparado.length; j++) {
                 String aux = c.classificar(baseSeparada, testSeparado[j], i + 1);
+               
                 resultados += aux + "\n";
                 saidas[j] = aux;
             }
             taxaAprendidado = c.taxaAprendizado(resuldadosEsperado, saidas);
-            System.out.println((i+1) + " - " + taxaAprendidado);
+            System.out.println((i + 1) + " - " + taxaAprendidado);
+
         }
 
         mt.create(resultados);
 
+        */
+        System.out.println(p.psoTodos(baseSeparada, testSeparado, 7));
+        
     }
 
 }
